@@ -1,4 +1,6 @@
 class Eye extends Tail {
+  float scale;
+  boolean dilate = true;
 
   // Default Constructor
   Eye() {
@@ -7,6 +9,7 @@ class Eye extends Tail {
     this.y = 500;
     this.radius = 3;
     this.c = #000000;
+    this.scale = 0.5;
     this.speed = 2;
   }
 
@@ -17,6 +20,7 @@ class Eye extends Tail {
     this.speed = s;
     this.radius = r;
     this.c = c;
+    this.scale = 0.5;
   }
 
   // To display onto canvas

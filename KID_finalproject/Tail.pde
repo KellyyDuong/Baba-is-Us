@@ -21,6 +21,8 @@ class Tail extends Body {
     // To ensure only modifying fish tail
     pushMatrix();
     fill(c);
+    // Rotate pyramid to represent tail
+
     triangle(x + 2, y, x - 10, y - 10, x - 10, y + 10);
     // Animation
     if (x > 1000) {

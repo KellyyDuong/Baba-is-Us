@@ -1,3 +1,0 @@
-class SoloLevel extends Level
-{
-}

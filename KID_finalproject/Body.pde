@@ -24,7 +24,7 @@ class Body extends Fish {
     fill(c);
     ellipse(x, y, radius + 10, radius);
     // Animation
-    if (x > 1000) {
+    if (x > 950) {
       x = 0;
     }
     x += speed;

@@ -3,7 +3,7 @@ class Tail extends Body {
   // Default Constructor
   Tail() {
     super();
-    this.x = 0;
+    this.x = 40;
     this.y = 500;
     this.speed = 2;
   }
@@ -25,7 +25,7 @@ class Tail extends Body {
 
     triangle(x + 2, y, x - 10, y - 10, x - 10, y + 10);
     // Animation
-    if (x > 1000) {
+    if (x > 950) {
       x = 0;
     }
     x += speed;

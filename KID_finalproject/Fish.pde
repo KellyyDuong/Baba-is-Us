@@ -6,7 +6,7 @@ class Fish {
 
   // Default Constructor
   Fish() {
-    this.x = 10;
+    this.x = 50;
     this.y = 500;
     this.speed = 2;
   }

@@ -17,10 +17,13 @@ HashMap<String, Rule> ruleMap;
 HashMap<Integer, String> tileNums;
 IntList waterTileNums;
 
-// Initialize objects for fishes
-Body b;
-Eye e;
-Tail t;
+// Initialize objects for fishes, boat, flag, pole
+Body b, b2, b3;
+Eye e, e2, e3;
+Tail t, t2, t3;
+Boat boat;
+Pole pole;
+BoatFlag boatflag;
 
 void setup() {
   size(1000, 800); // Tiles are 50x50 pixels, with the top left tile being at (0, 0) (really at (25, 25)) and the botton right tile being at (900, 700) (really at (925, 725))
@@ -37,6 +40,20 @@ void setup() {
   yaga = new Yaga(750, 600, p2.names);
   tree = new Tree(50, 50, new StringList("Tree_Character"));
   flag = new Flag(800, 100, new StringList("Flag_Character"));
+  boatflag = new BoatFlag();
+  
+  // Declare fish, boat, flag, and pole object fields
+  b = new Body();
+  e = new Eye();
+  t = new Tail();
+  b2 = new Body(50, 300, 2, 20, #4BC1FF);
+  e2 = new Eye(56, 300, 2, 3, #000000);
+  t2 = new Tail(40, 300, 2, #4BC1FF);
+  b3 = new Body(50, 350, 2, 20, #FF7E4B);
+  e3 = new Eye(56, 350, 2, 3, #000000);
+  t3 = new Tail(40, 350, 2, #FF7E48);
+  boat = new Boat();
+  pole = new Pole();
   
   playerMap = new HashMap<String, Player>();
   playerMap.put("Baba_Character", baba);
@@ -130,10 +147,6 @@ void setup() {
       }
     }
   }
-  
-  b = new Body();
-  e = new Eye();
-  t = new Tail();
 }
 
 void youTest(Rule theRule, Player p, int superOffset)
@@ -334,9 +347,19 @@ void draw() {
     ruleCheck(theRule);
   }
   
+  // Display objects
   t.display();
   b.display();
   e.display();
+  t2.display();
+  b2.display();
+  e2.display();
+  t3.display();
+  b3.display();
+  e3.display();
+  boat.display();
+  pole.display();
+  boatflag.display();
   
   victoryCheck();
 }

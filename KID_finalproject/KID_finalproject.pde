@@ -17,13 +17,18 @@ HashMap<String, Rule> ruleMap;
 HashMap<Integer, String> tileNums;
 IntList waterTileNums;
 
-// Initialize objects for fishes, boat, flag, pole
+// Initialize objects for fishes, boat, flag, pole, environmentobjs
 Body b, b2, b3;
 Eye e, e2, e3;
 Tail t, t2, t3;
 Boat boat;
 Pole pole;
 BoatFlag boatflag;
+EnvironmentObj o, o1, o2, o3, o4, o5, o6, o7;
+
+// Initialize fireworks for victory screen
+int fireworksCount = 100;
+Fireworks[] fireworks = new Fireworks[fireworksCount];
 
 void setup() {
   size(1000, 800); // Tiles are 50x50 pixels, with the top left tile being at (0, 0) (really at (25, 25)) and the botton right tile being at (900, 700) (really at (925, 725))
@@ -41,7 +46,7 @@ void setup() {
   tree = new Tree(50, 50, new StringList("Tree_Character"));
   flag = new Flag(800, 100, new StringList("Flag_Character"));
   boatflag = new BoatFlag();
-  
+
   // Declare fish, boat, flag, and pole object fields
   b = new Body();
   e = new Eye();
@@ -54,7 +59,24 @@ void setup() {
   t3 = new Tail(40, 350, 2, #FF7E48);
   boat = new Boat();
   pole = new Pole();
-  
+
+  // Fireworks
+  for (int i = 0; i < fireworksCount; i++) {
+    fireworks[i] = new Fireworks();
+  }
+
+  // Environment Objects
+  o = new EnvironmentObj(650, 75, 1); // Rock
+  o1 = new EnvironmentObj(475, 50, 2); // Water
+  o2 = new EnvironmentObj(385, 550, 4); // Lily Pad
+  o3 = new EnvironmentObj(400, 650, 5); // Algae
+  o4 = new EnvironmentObj(470, 650, 5); // Algae
+  o5 = new EnvironmentObj(540, 650, 5); // Algae
+  o6 = new EnvironmentObj(435, 700, 5); // Algae
+  o7 = new EnvironmentObj(505, 700, 5); // Algae
+
+
+
   playerMap = new HashMap<String, Player>();
   playerMap.put("Baba_Character", baba);
   playerMap.put("Yaga_Character", yaga);
@@ -62,7 +84,7 @@ void setup() {
   playerMap.put("Dummy2", dummy2);
   playerMap.put("Tree_Character", tree);
   playerMap.put("Flag_Character", flag);
-  
+
   playerNames = new ArrayList<String>();
   playerNames.add("Baba_Character");
   playerNames.add("Yaga_Character");
@@ -70,39 +92,39 @@ void setup() {
   playerNames.add("Dummy2");
   playerNames.add("Tree_Character");
   playerNames.add("Flag_Character");
-  
+
   tileNums = new HashMap<Integer, String>();
   for (String name : playerNames)
   {
     tileNums.put(playerMap.get(name).tileNum, name);
   }
-  
+
   /*
     Fourth parameter in the Rule constructor is ruleType. Here's what each value means:
-    1 = Noun rule/Player object
-    2 = Verb that requires two noun rules in some sort of line to function
-    3 = Verb that requires a noun rule either on top or to the left of the rule in question to function
-    4 = Adjective that requires a "Is" block either on top or to the left of the rule in question to function
-    
-    A completed "rule set" strictly requires a noun and a verb (e.g. "Baba" "Can Swim"). An adjective is optional.
-    A completed "rule set" strictly must be either two or three Rules long.
-    A completed "rule set" strictly must have a Rule.ruleType == 1 in the first position and Rule.ruleType == 2 or 3 in the second position.
-  */
-  
+   1 = Noun rule/Player object
+   2 = Verb that requires two noun rules in some sort of line to function
+   3 = Verb that requires a noun rule either on top or to the left of the rule in question to function
+   4 = Adjective that requires a "Is" block either on top or to the left of the rule in question to function
+   
+   A completed "rule set" strictly requires a noun and a verb (e.g. "Baba" "Can Swim"). An adjective is optional.
+   A completed "rule set" strictly must be either two or three Rules long.
+   A completed "rule set" strictly must have a Rule.ruleType == 1 in the first position and Rule.ruleType == 2 or 3 in the second position.
+   */
+
   babaRule = new Rule(0, 200, "Baba", 1);
   yagaRule = new Rule(600, 600, "Yaga", 1);
   flagRule = new Rule(800, 650, "Flag", 1);
   you1 = new Rule(100, 200, "Player 1", 1);
   you2 = new Rule(600, 700, "Player 2", 1);
-  
+
   is1 = new Rule(50, 200, "Is1", 2);
   is2 = new Rule(600, 650, "Is2", 2);
   is3 = new Rule(850, 650, "Is3", 2);
-  
+
   canSwim = new Rule(700, 550, "Can Swim", 3);
-  
+
   win = new Rule(200, 100, "Win", 4);
-  
+
   ruleMap = new HashMap<String, Rule>();
   ruleMap.put("Baba", babaRule);
   ruleMap.put("Yaga", yagaRule);
@@ -114,7 +136,7 @@ void setup() {
   ruleMap.put("Is3", is3);
   ruleMap.put("Can Swim", canSwim);
   ruleMap.put("Win", win);
-  
+
   ruleNames = new StringList();
   ruleNames.append("Baba");
   ruleNames.append("Yaga");
@@ -126,12 +148,12 @@ void setup() {
   ruleNames.append("Is3");
   ruleNames.append("Can Swim");
   ruleNames.append("Win");
-  
+
   for (String name : ruleNames)
   {
     tileNums.put(ruleMap.get(name).tileNum, name);
   }
-  
+
   waterTileNums = new IntList();
   for (int i = 95; i <= 189; i++)
   {
@@ -186,7 +208,7 @@ void adjectiveTest(Rule theRule, int superOffset)
     {
       switch(ruleMap.get(tileNums.get(theRule.tileNum + superOffset)).text)
       {
-        case "Win":
+      case "Win":
         {
           String newName = ruleMap.get(tileNums.get(theRule.tileNum - superOffset)).text + "_Character";
           playerMap.get(newName).attributes.set("isWin", "y");
@@ -202,12 +224,10 @@ void checkForBabaOrYaga(Rule theRule, Player p, int offset)
   if (ruleMap.get(tileNums.get(theRule.tileNum + offset)).text == "Baba")
   {
     p.names.append("Baba_Character");
-  }
-  else if (ruleMap.get(tileNums.get(theRule.tileNum + offset)).text == "Yaga")
+  } else if (ruleMap.get(tileNums.get(theRule.tileNum + offset)).text == "Yaga")
   {
     p.names.append("Yaga_Character");
-  }
-  else
+  } else
   {
     String newName = ruleMap.get(tileNums.get(theRule.tileNum + offset)).text + "_Character";
     p.names.append(newName);
@@ -219,16 +239,16 @@ void ruleCheck(Rule theRule) // We only care about checking for verbs to create 
 {
   switch(theRule.text)
   {
-    case "Player 1":
+  case "Player 1":
     {
       p1.names.clear();
       p1.playerIsAssigned = false;
-      
+
       youTest(theRule, p1, -19);
       youTest(theRule, p1, 19);
       youTest(theRule, p1, -1);
       youTest(theRule, p1, 1);
-      
+
       if (p1.playerIsAssigned == false)
       {
         p1.names.clear();
@@ -236,16 +256,16 @@ void ruleCheck(Rule theRule) // We only care about checking for verbs to create 
       }
       break;
     }
-    case "Player 2":
+  case "Player 2":
     {
       p2.names.clear();
       p2.playerIsAssigned = false;
-      
+
       youTest(theRule, p2, -19);
       youTest(theRule, p2, 19);
       youTest(theRule, p2, -1);
       youTest(theRule, p2, 1);
-      
+
       if (p2.playerIsAssigned == false)
       {
         p2.names.clear();
@@ -253,7 +273,7 @@ void ruleCheck(Rule theRule) // We only care about checking for verbs to create 
       }
       break;
     }
-    case "Can Swim":
+  case "Can Swim":
     {
       swimTest(theRule, -19);
       swimTest(theRule, 19);
@@ -261,13 +281,13 @@ void ruleCheck(Rule theRule) // We only care about checking for verbs to create 
       swimTest(theRule, 1);
       break;
     }
-    case "Is1":
+  case "Is1":
     {
     }
-    case "Is2":
+  case "Is2":
     {
     }
-    case "Is3":
+  case "Is3":
     {
       adjectiveTest(theRule, 19);
       adjectiveTest(theRule, 1);
@@ -282,7 +302,7 @@ int playersAroundWin(Player p)
   {
     if (playerMap.get(name).tileNum == p.tileNum - 1 || playerMap.get(name).tileNum == p.tileNum + 1 || playerMap.get(name).tileNum == p.tileNum + 19 || playerMap.get(name).tileNum == p.tileNum - 19 || playerMap.get(name).attributes.get("isWin") == "y")
     {
-      for (String name2: p2.names)
+      for (String name2 : p2.names)
       {
         if (playerMap.get(name2).tileNum == p.tileNum - 1 || playerMap.get(name2).tileNum == p.tileNum + 1 || playerMap.get(name2).tileNum == p.tileNum + 19 || playerMap.get(name2).tileNum == p.tileNum - 19 || playerMap.get(name2).attributes.get("isWin") == "y")
         {
@@ -308,8 +328,13 @@ void victoryCheck()
   {
     background(255);
     textSize(72);
+    fill(0);
     textAlign(CENTER, CENTER);
     text("YOU WIN!", width/2, height/2);
+    for (int i = 0; i < fireworksCount; i++) {
+      fireworks[i].update();
+      fireworks[i].display();
+    }
   }
 }
 
@@ -322,12 +347,12 @@ void draw() {
     fill(#4592E3);
     square(x, y, 50);
   }
-  
+
   for (String name : playerNames)
   {
     playerMap.get(name).display();
   }
-  
+
   for (String name : playerNames)
   {
     for (String attribute : playerMap.get(name).attributes.keyArray())
@@ -339,15 +364,15 @@ void draw() {
     }
   }
   tree.attributes.set("canBeMoved", "n");
-  
+
   for (String name : ruleNames)
   {
     Rule theRule = ruleMap.get(name);
     theRule.display();
     ruleCheck(theRule);
   }
-  
-  // Display objects
+
+  // Display necessary environment objects
   t.display();
   b.display();
   e.display();
@@ -360,7 +385,15 @@ void draw() {
   boat.display();
   pole.display();
   boatflag.display();
-  
+  o.display();
+  o1.display();
+  o2.display();
+  o3.display();
+  o4.display();
+  o5.display();
+  o6.display();
+  o7.display();
+
   victoryCheck();
 }
 

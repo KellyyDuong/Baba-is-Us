@@ -1,4 +1,5 @@
 import java.util.Map;
+import processing.sound.*;
 
 Player p1, p2, dummy1, dummy2;
 Baba baba;
@@ -46,6 +47,7 @@ Pause pause1, pause2;
 int startTime;
 int endTime;
 int totalTime;
+SoundFile theme;
 
 void setup() {
   size(1000, 800); // Tiles are 50x50 pixels, with the top left tile being at (0, 0) (really at (25, 25)) and the botton right tile being at (900, 700) (really at (925, 725))
@@ -192,6 +194,9 @@ void setup() {
   pause = new Button(900, 75, 200, 100, color(0, 0, 0));
   pause1 = new Pause();
   pause2 = new Pause();
+  
+  theme = new SoundFile(this, "theme.wav");
+  theme.play();
 }
 
 void youTest(Rule theRule, Player p, int superOffset)

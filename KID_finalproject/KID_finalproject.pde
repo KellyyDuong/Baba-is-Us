@@ -30,6 +30,20 @@ EnvironmentObj o, o1, o2, o3, o4, o5, o6, o7;
 int fireworksCount = 100;
 Fireworks[] fireworks = new Fireworks[fireworksCount];
 
+// Initialize GUI objects and variables
+Start s;
+HighScores h;
+PFont startFont;
+boolean singlePlayer = false;
+boolean multiPlayer = false;
+boolean start = true;
+int score = 0;
+boolean highScore = false;
+boolean paused1 = false;
+boolean paused2 = false;
+Button pause;
+Pause pause1, pause2;
+
 void setup() {
   size(1000, 800); // Tiles are 50x50 pixels, with the top left tile being at (0, 0) (really at (25, 25)) and the botton right tile being at (900, 700) (really at (925, 725))
   // Note: ALL Player/Rule objects MUST satisfy at least these two requirements:
@@ -169,6 +183,12 @@ void setup() {
       }
     }
   }
+  startFont = createFont("PerfectFutures.otf", 128);
+  s = new Start();
+  h = new HighScores();
+  pause = new Button(900, 75, 200, 100, color(0, 0, 0));
+  pause1 = new Pause();
+  pause2 = new Pause();
 }
 
 void youTest(Rule theRule, Player p, int superOffset)
@@ -340,61 +360,135 @@ void victoryCheck()
 
 void draw() {
   background(#9B7454);
-  for (int i : waterTileNums)
+    if (start)
   {
-    int x = (i%19)*50 + 25;
-    int y = (i - i%19)/19*50 + 25;
-    fill(#4592E3);
-    square(x, y, 50);
+    s.display();
   }
-
-  for (String name : playerNames)
+  if (mousePressed == true && s.b1.mouseIsOverButton())
   {
-    playerMap.get(name).display();
+    singlePlayer = true;
+    start = false;
   }
-
-  for (String name : playerNames)
+  if (mousePressed == true && s.b2.mouseIsOverButton())
   {
-    for (String attribute : playerMap.get(name).attributes.keyArray())
+    multiPlayer = true;
+    start = false;
+  }
+  if (mousePressed == true && s.b3.mouseIsOverButton())
+  {
+    highScore = true;
+    start = false;
+  }
+  if (highScore)
+  {
+    h.display();
+  }
+  if (singlePlayer)
+  {
+    pause.display("Pause");
+    if (mousePressed && pause.mouseIsOverButton())
     {
-      if (attribute != "canBeOnTop" && attribute != "canBeMoved")
-      {
-        playerMap.get(name).attributes.set(attribute, "n");
-      }
+      paused1 = true;
     }
   }
-  tree.attributes.set("canBeMoved", "n");
-
-  for (String name : ruleNames)
+  if (multiPlayer)
   {
-    Rule theRule = ruleMap.get(name);
-    theRule.display();
-    ruleCheck(theRule);
+    for (int i : waterTileNums)
+    {
+      int x = (i%19)*50 + 25;
+      int y = (i - i%19)/19*50 + 25;
+      fill(#4592E3);
+      square(x, y, 50);
+    }
+
+    for (String name : playerNames)
+    {
+      playerMap.get(name).display();
+    }
+
+    for (String name : playerNames)
+    {
+      for (String attribute : playerMap.get(name).attributes.keyArray())
+      {
+        if (attribute != "canBeOnTop" && attribute != "canBeMoved")
+        {
+          playerMap.get(name).attributes.set(attribute, "n");
+        }
+      }
+    }
+    tree.attributes.set("canBeMoved", "n");
+
+    for (String name : ruleNames)
+    {
+      Rule theRule = ruleMap.get(name);
+      theRule.display();
+      ruleCheck(theRule);
+    }
+
+    // Display necessary environment objects
+    t.display();
+    b.display();
+    e.display();
+    t2.display();
+    b2.display();
+    e2.display();
+    t3.display();
+    b3.display();
+    e3.display();
+    boat.display();
+    pole.display();
+    boatflag.display();
+    o.display();
+    o1.display();
+    o2.display();
+    o3.display();
+    o4.display();
+    o5.display();
+    o6.display();
+    o7.display();
+
+    victoryCheck();
   }
-
-  // Display necessary environment objects
-  t.display();
-  b.display();
-  e.display();
-  t2.display();
-  b2.display();
-  e2.display();
-  t3.display();
-  b3.display();
-  e3.display();
-  boat.display();
-  pole.display();
-  boatflag.display();
-  o.display();
-  o1.display();
-  o2.display();
-  o3.display();
-  o4.display();
-  o5.display();
-  o6.display();
-  o7.display();
-
-  victoryCheck();
+  if (paused1)
+  {
+    pause1.display();
+    singlePlayer = false;
+  }
+  if (paused1 && pause1.b1.mouseIsOverButton() && mousePressed)
+  {
+    paused1 = false;
+    singlePlayer = true;
+  }
+  if (paused2)
+  {
+    pause2.display();
+    multiPlayer = false;
+  }
+  if (paused2 && pause2.b1.mouseIsOverButton() && mousePressed)
+  {
+    paused2 = false;
+    multiPlayer = true;
+  }
+  if (paused1 && pause1.b2.mouseIsOverButton() && mousePressed)
+  {
+    paused1 = false;
+    start = true;
+  }
+  if (paused2 && pause2.b2.mouseIsOverButton() && mousePressed)
+  {
+    paused2 = false;
+    start = true;
+  }
+  if (paused1 && pause1.b3.mouseIsOverButton() && mousePressed)
+  {
+    paused1 = false;
+    highScore = true;
+  }
+  if (paused2 && pause2.b3.mouseIsOverButton() && mousePressed)
+  {
+    paused2 = false;
+    highScore = true;
+  }
 }
 
 void keyPressed() {

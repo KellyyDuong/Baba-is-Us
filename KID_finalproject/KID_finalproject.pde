@@ -195,7 +195,7 @@ void setup() {
   pause1 = new Pause();
   pause2 = new Pause();
   
-  theme = new SoundFile(this, "theme.wav");
+  theme = new SoundFile(this, "theme.mp3");
   theme.play();
 }
 

@@ -1,5 +1,7 @@
 class HighScores
 {
+  String[] scores;
+  int[] intScores;
   HighScores()
   {
     scores = loadStrings("highScores.txt");

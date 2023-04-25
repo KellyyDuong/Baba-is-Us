@@ -1,5 +1,4 @@
-Baba is Us: a game where you “make the rules” as you play the game. Our game is heavily inspired by a preexisting game, “Baba Is You.” In our game, you control a character named Baba who completes levels by meeting some goal in each level.  .... 
-
+Baba is Us: a game where you “make the rules” as you play the game. Our game is heavily inspired by a preexisting game, “Baba Is You.” In our game, you control a character named Baba who completes levels by meeting some goal in each level within a given time limit. The rules of each level are represented by “word blocks” (e.g. “LAVA”, “IS”, “WIN”) that can be moved around by Baba/Yaga to its advantage. Furthermore, the “play space” of the game (i.e. the area in which the player can move around) is “tiled” so that the player will only be able to move from tile to tile. The play space also has objects (e.g. lava, water, boats, rocks, etc.) that may or may not be manipulated by Baba/Yaga. There is also a solo or multiplayer functionality for our game that you can choose at the beginning prior to starting. 
 
 Class Baba - Kelly Duong
 
@@ -11,4 +10,17 @@ The Yaga class consists of the sprite Yaga. It also has the x, y fields, speed, 
 
 Class Fish - Kelly Duong
 
-The fish class consisted of the objects body of the fish, eyes of the fish, and tail of the fish. The main class Fish was intended to initialize the generic fields for the parts of the fish, which consisted of the x, y, speed fields. The body of the fish is an object in the fish class. The necessary fields for the body of the fish is the same as the fish class, but with the additional fields of radius and a color variable. There is also the tail of the fish, which is an object that extends the body of the fish. The tail of the fish has the same fields as the body of the fish. There is also the eyes of the fish which extends the tail of the fish and has the same fields. 
+The fish class consisted of the objects body of the fish, eyes of the fish, and tail of the fish. The main class Fish was intended to initialize the generic fields for the parts of the fish, which consisted of the x, y, speed fields. The body of the fish is an object in the fish class. The necessary fields for the body of the fish is the same as the fish class, but with the additional fields of radius and a color variable. There is also the tail of the fish, which is an object that extends the body of the fish. The tail of the fish has the same fields as the body of the fish. There is also the eyes of the fish which extends the tail of the fish and has the same fields. The parts of the fish is animated in a way to create an animation hierarchy. As the fish translates across the canvas, the pupils of the fish will dilate correspondingly and move along as well.
+
+Class Boat - Kelly Duong
+
+The boat class consists of the objects pole and boat flag. The main class Boat was intended to intiailize the generic fields for the base of the boat, which consisted of the x, y, and speed fields. The pole object extended the boat class and made the pole of the boat. There is also the boat flag object, which creates the flag for the boat and extended the pole object. The overall boat translates across the canvas, with the flag flipping along the pole accordingly as the boat moves.
+
+Class Fireworks - Kelly Duong
+
+The fireworks class is intended to animate the winning screen once the player complets a level. It consisted of the fields x, y, vx, vy, radius, and color. It is supposed to replicate "fireworks" along with a "You Win!" text when the player successfully completes a level.
+
+Class Environment Obj - Kelly Duong
+
+The Environment Obj class is intended to load in the different PImage for the environment objects such as rock, water, lava, lily, and algae. This class consisted of the fields x, y for position of the objects, and an integer type to denote what type of environment object will be displayed. There is also the method display() to display the PImage onto the canvas.
+

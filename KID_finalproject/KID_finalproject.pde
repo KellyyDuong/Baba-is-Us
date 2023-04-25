@@ -43,6 +43,9 @@ boolean paused1 = false;
 boolean paused2 = false;
 Button pause;
 Pause pause1, pause2;
+int startTime;
+int endTime;
+int totalTime;
 
 void setup() {
   size(1000, 800); // Tiles are 50x50 pixels, with the top left tile being at (0, 0) (really at (25, 25)) and the botton right tile being at (900, 700) (really at (925, 725))
@@ -346,6 +349,11 @@ void victoryCheck()
   }
   if (hasWon > 0)
   {
+    endTime = millis();
+    totalTime += (endTime-startTime);
+    String[] totalTimes = new String[1];
+    totalTimes[0] = Integer.toString(totalTime);
+    saveStrings("highScores", totalTimes);
     background(255);
     textSize(72);
     fill(0);
@@ -360,7 +368,7 @@ void victoryCheck()
 
 void draw() {
   background(#9B7454);
-    if (start)
+  if (start)
   {
     s.display();
   }
@@ -368,11 +376,13 @@ void draw() {
   {
     singlePlayer = true;
     start = false;
+    startTime = millis();
   }
   if (mousePressed == true && s.b2.mouseIsOverButton())
   {
     multiPlayer = true;
     start = false;
+    startTime = millis();
   }
   if (mousePressed == true && s.b3.mouseIsOverButton())
   {
@@ -389,10 +399,19 @@ void draw() {
     if (mousePressed && pause.mouseIsOverButton())
     {
       paused1 = true;
+      endTime = millis();
+      totalTime += (endTime-startTime);
     }
   }
   if (multiPlayer)
   {
+    pause.display("Pause");
+    if (mousePressed && pause.mouseIsOverButton())
+    {
+      paused2 = true;
+      endTime = millis();
+      totalTime += (endTime-startTime);
+    }
     for (int i : waterTileNums)
     {
       int x = (i%19)*50 + 25;

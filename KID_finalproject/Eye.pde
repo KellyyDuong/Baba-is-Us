@@ -45,7 +45,7 @@ class Eye extends Tail {
     if (dilate) {
       scale += 0.01;
       if (scale >= 1.8) {
-        dilate = false;  
+        dilate = false;
       }
     } else {
       scale -= 0.01;

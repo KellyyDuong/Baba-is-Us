@@ -4,7 +4,7 @@ class Tree extends Player
   {
     super(x, y, names);
   }
-  
+
   void display()
   {
     fill(#5F3232);

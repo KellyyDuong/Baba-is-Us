@@ -5,10 +5,10 @@ class Boat {
   // Constructor
   Boat() {
     this.x = 50;
-    this.y = 440; 
+    this.y = 440;
     this.s = 2;
   }
-  
+
   // To display onto canvas
   void display() {
     fill(#895D4C);

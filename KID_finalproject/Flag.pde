@@ -4,7 +4,7 @@ class Flag extends Player
   {
     super(x, y, names);
   }
-  
+
   void display()
   {
     fill(#F01616);

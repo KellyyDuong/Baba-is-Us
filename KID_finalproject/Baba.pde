@@ -5,11 +5,11 @@ class Baba extends Player {
   PImage current;
   int frameCounter = 0;
   int frameSwitch = 20;
-  
+
   // Constructor
   Baba(int x, int y, StringList names) {
     super(x, y, names);
-    
+
     // Load in the different sprites
     for (int i = 0; i < babaFrames.length; i++) {
       String imageName = "Baba-" + nf(i+1, 1) + ".png";
@@ -45,7 +45,7 @@ class Baba extends Player {
     frameCounter++;
     image(current, x, y, 100, 100);
   }
-  
+
   void moveLeft() {
     right = false;
     int offset = -1;
@@ -65,8 +65,7 @@ class Baba extends Player {
               yaga.current = yagaFrames[3];
             }
           }
-        }
-        else
+        } else
         {
           playerMap.get(name).x -= speed;
           current = babaFrames[4];
@@ -75,8 +74,7 @@ class Baba extends Player {
             yaga.current = yagaFrames[3];
           }
         }
-      }
-      else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+      } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
       {
         if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x > 0)
         {
@@ -85,8 +83,7 @@ class Baba extends Player {
           playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x -= speed;
           playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
         }
-      }
-      else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+      } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
       {
         if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x > 0)
         {
@@ -119,8 +116,7 @@ class Baba extends Player {
               yaga.current = yagaFrames[1];
             }
           }
-        }
-        else
+        } else
         {
           playerMap.get(name).x += speed;
           current = babaFrames[2];
@@ -129,8 +125,7 @@ class Baba extends Player {
             yaga.current = yagaFrames[1];
           }
         }
-      }
-      else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+      } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
       {
         if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x < 900)
         {
@@ -139,8 +134,7 @@ class Baba extends Player {
           playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x += speed;
           playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
         }
-      }
-      else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+      } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
       {
         if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x < 900)
         {

@@ -43,10 +43,14 @@ boolean highScore = false;
 boolean paused1 = false;
 boolean paused2 = false;
 Button pause;
+Button main;
+boolean loseScreen;
+boolean playing = false;
 Pause pause1, pause2;
 int startTime;
 int endTime;
 int totalTime;
+Timer timer;
 SoundFile theme;
 
 void setup() {
@@ -65,6 +69,7 @@ void setup() {
   tree = new Tree(50, 50, new StringList("Tree_Character"));
   flag = new Flag(800, 100, new StringList("Flag_Character"));
   boatflag = new BoatFlag();
+  timer = new Timer();
 
   // Declare fish, boat, flag, and pole object fields
   b = new Body();
@@ -93,8 +98,6 @@ void setup() {
   o5 = new EnvironmentObj(540, 650, 5); // Algae
   o6 = new EnvironmentObj(435, 700, 5); // Algae
   o7 = new EnvironmentObj(505, 700, 5); // Algae
-
-
 
   playerMap = new HashMap<String, Player>();
   playerMap.put("Baba_Character", baba);
@@ -191,10 +194,10 @@ void setup() {
   startFont = createFont("PerfectFutures.otf", 128);
   s = new Start();
   h = new HighScores();
-  pause = new Button(900, 75, 200, 100, color(0, 0, 0));
+  pause = new Button(900, 50, 200, 100, color(0, 0, 0));
+  main = new Button(width/2, 575, 250, 100, color(0, 0, 0));
   pause1 = new Pause();
   pause2 = new Pause();
-  
   theme = new SoundFile(this, "theme.mp3");
   theme.play();
 }
@@ -342,6 +345,7 @@ int playersAroundWin(Player p)
   return 0;
 }
 
+// Check if the game has been won and display the you win screen
 void victoryCheck()
 {
   int hasWon = 0;
@@ -371,6 +375,22 @@ void victoryCheck()
   }
 }
 
+// If timer runs out, display you lose screen
+void loseCheck() {
+  if (timer.checkTime() >= timer.timer) {
+    loseScreen = true;
+    background(255);
+    textSize(72);
+    fill(0);
+    textAlign(CENTER, CENTER);
+    text("YOU LOSE :(", width/2, height/2);
+    for (int i = 0; i < fireworksCount; i++) {
+      fireworks[i].update();
+      fireworks[i].display();
+    }
+  }
+}
+
 void draw() {
   background(#9B7454);
   if (start)
@@ -380,12 +400,14 @@ void draw() {
   if (mousePressed == true && s.b1.mouseIsOverButton())
   {
     singlePlayer = true;
+    playing = true;
     start = false;
     startTime = millis();
   }
   if (mousePressed == true && s.b2.mouseIsOverButton())
   {
     multiPlayer = true;
+    playing = true;
     start = false;
     startTime = millis();
   }
@@ -397,26 +419,35 @@ void draw() {
   if (highScore)
   {
     h.display();
+    if (h.b.mouseIsOverButton() && mousePressed && start == false) {
+      start = true;
+      highScore = false;
+    }
   }
   if (singlePlayer)
   {
     pause.display("Pause");
+    timer.display();
     if (mousePressed && pause.mouseIsOverButton())
     {
       paused1 = true;
       endTime = millis();
       totalTime += (endTime-startTime);
     }
+    victoryCheck();
+    loseCheck();
   }
   if (multiPlayer)
   {
     pause.display("Pause");
+    timer.display();
     if (mousePressed && pause.mouseIsOverButton())
     {
       paused2 = true;
       endTime = millis();
       totalTime += (endTime-startTime);
     }
+
     for (int i : waterTileNums)
     {
       int x = (i%19)*50 + 25;
@@ -472,6 +503,7 @@ void draw() {
     o7.display();
 
     victoryCheck();
+    loseCheck();
   }
   if (paused1)
   {
@@ -512,6 +544,16 @@ void draw() {
   {
     paused2 = false;
     highScore = true;
+  }
+  if (loseScreen) {
+    main.display("Main Menu");
+    if (main.mouseIsOverButton() && mousePressed) {
+      start = true;
+      singlePlayer = false;
+      multiPlayer = false;
+      loseScreen = false;
+      timer.reset();
+    }
   }
 }
 

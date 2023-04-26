@@ -5,9 +5,9 @@ class Player
   boolean right = true; // To keep track of whether facing left/right
   StringList names;
   boolean playerIsAssigned = false;
-  
+
   StringDict attributes;
-  
+
   Player(int x, int y, StringList names)
   {
     if (!names.hasValue("Baba_Character") && !names.hasValue("Yaga_Character"))
@@ -15,8 +15,7 @@ class Player
       this.x = x + 25;
       this.y = y + 25;
       tileNum = (this.x - 25)/50 + 19*(this.y - 25)/50;
-    }
-    else
+    } else
     {
       this.x = x;
       this.y = y;
@@ -29,24 +28,23 @@ class Player
     attributes.set("canBeMoved", "y");
     attributes.set("canBeOnTop", "y");
   }
-  
+
   Player(StringList names)
   {
     this.names = names;
   }
-  
+
   void updateTileNum(String name)
   {
     int tempTileNum = playerMap.get(name).tileNum;
     if (name != "Baba_Character" && name != "Yaga_Character")
     {
       playerMap.get(name).tileNum = (playerMap.get(name).x - 25)/50 + 19*((playerMap.get(name).y - 25)/50);
-    }
-    else
+    } else
     {
       playerMap.get(name).tileNum = playerMap.get(name).x/50 + 19*(playerMap.get(name).y/50);
     }
-    
+
     tileNums.remove(tempTileNum);
     tileNums.put(playerMap.get(name).tileNum, name);
   }
@@ -57,17 +55,17 @@ class Player
     {
       switch(name)
       {
-        case "Baba_Character":
+      case "Baba_Character":
         {
           baba.moveLeft();
           break;
         }
-        case "Yaga_Character":
+      case "Yaga_Character":
         {
           yaga.moveLeft();
           break;
         }
-        default:
+      default:
         {
           int offset = -1;
           if (playerMap.get(name).x > 0)
@@ -80,13 +78,11 @@ class Player
                 {
                   playerMap.get(name).x -= playerMap.get(name).speed;
                 }
-              }
-              else
+              } else
               {
                 playerMap.get(name).x -= playerMap.get(name).speed;
               }
-            }
-            else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+            } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
             {
               if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x > 0)
               {
@@ -94,8 +90,7 @@ class Player
                 playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x -= speed;
                 playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
               }
-            }
-            else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+            } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
             {
               if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x > 0)
               {
@@ -117,17 +112,17 @@ class Player
     {
       switch(name)
       {
-        case "Baba_Character":
+      case "Baba_Character":
         {
           baba.moveRight();
           break;
         }
-        case "Yaga_Character":
+      case "Yaga_Character":
         {
           yaga.moveRight();
           break;
         }
-        default:
+      default:
         {
           int offset = 1;
           if (playerMap.get(name).x < 900)
@@ -140,13 +135,11 @@ class Player
                 {
                   playerMap.get(name).x += playerMap.get(name).speed;
                 }
-              }
-              else
+              } else
               {
                 playerMap.get(name).x += playerMap.get(name).speed;
               }
-            }
-            else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+            } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
             {
               if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x < 900)
               {
@@ -154,8 +147,7 @@ class Player
                 playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x += speed;
                 playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
               }
-            }
-            else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+            } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
             {
               if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).x < 900)
               {
@@ -186,13 +178,11 @@ class Player
             {
               playerMap.get(name).y -= playerMap.get(name).speed;
             }
-          }
-          else
+          } else
           {
             playerMap.get(name).y -= playerMap.get(name).speed;
           }
-        }
-        else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+        } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
         {
           if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y > 0)
           {
@@ -200,8 +190,7 @@ class Player
             playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y -= speed;
             playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
           }
-        }
-        else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+        } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
         {
           if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y > 0)
           {
@@ -218,7 +207,7 @@ class Player
   // Move object down
   void moveDown() {
     int offset = 19;
-    for (String name: names)
+    for (String name : names)
     {
       if (playerMap.get(name).y < 700)
       {
@@ -230,13 +219,11 @@ class Player
             {
               playerMap.get(name).y += playerMap.get(name).speed;
             }
-          }
-          else
+          } else
           {
             playerMap.get(name).y += playerMap.get(name).speed;
           }
-        }
-        else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+        } else if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
         {
           if (playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y < 700)
           {
@@ -244,8 +231,7 @@ class Player
             playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y += speed;
             playerMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).updateTileNum(tileNums.get(playerMap.get(name).tileNum + offset));
           }
-        }
-        else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
+        } else if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)) != null)
         {
           if (ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).attributes.get("canBeMoved") == "y" && ruleMap.get(tileNums.get(playerMap.get(name).tileNum + offset)).y < 700)
           {
@@ -258,7 +244,7 @@ class Player
       playerMap.get(name).updateTileNum(name);
     }
   }
-  
+
   void display()
   {
   }

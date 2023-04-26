@@ -26,4 +26,13 @@ class Fireworks {
     fill(c);
     ellipse(x, y, r, r);
   }
+  
+  void reset() {
+    x = random(width);
+    y = random(height);
+    vx = random(-2, 2);
+    vy = random(-2, 2);
+    r = 40;
+    c = color(random(255), random(255), random(255));
+  }
 }

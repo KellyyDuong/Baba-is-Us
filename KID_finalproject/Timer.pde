@@ -1,6 +1,6 @@
 class Timer {
   float x, y;
-  int timer = 60; // set the timer to 60 seconds
+  int timer = 30; // set the timer to 60 seconds
   int currentTime = 0; // initialize the current time to 0
 
   // Constructor

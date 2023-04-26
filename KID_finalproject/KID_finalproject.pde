@@ -27,7 +27,7 @@ Pole pole;
 BoatFlag boatflag;
 EnvironmentObj o, o1, o2, o3, o4, o5, o6, o7;
 
-// Initialize fireworks for victory screen
+// Initialize fireworks for victory and lose screen
 int fireworksCount = 100;
 Fireworks[] fireworks = new Fireworks[fireworksCount];
 
@@ -44,6 +44,7 @@ boolean paused1 = false;
 boolean paused2 = false;
 Button pause;
 Button main;
+boolean winScreen;
 boolean loseScreen;
 boolean playing = false;
 Pause pause1, pause2;
@@ -358,6 +359,7 @@ void victoryCheck()
   }
   if (hasWon > 0)
   {
+    winScreen = true;
     endTime = millis();
     totalTime += (endTime-startTime);
     String[] totalTimes = new String[1];
@@ -396,6 +398,9 @@ void draw() {
   if (start)
   {
     s.display();
+    for (int i = 0; i < fireworksCount; i++) {
+      fireworks[i].reset();
+    }
   }
   if (mousePressed == true && s.b1.mouseIsOverButton())
   {
@@ -554,6 +559,17 @@ void draw() {
       singlePlayer = false;
       multiPlayer = false;
       loseScreen = false;
+      winScreen = false;
+      timer.reset();
+    }
+  }
+  if (winScreen) {
+    main.display("Main Menu");
+    if (main.mouseIsOverButton() && mousePressed) {
+      start = true;
+      singlePlayer = false;
+      multiPlayer = false;
+      winScreen = false;
       timer.reset();
     }
   }

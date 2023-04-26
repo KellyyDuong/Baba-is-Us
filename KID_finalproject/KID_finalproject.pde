@@ -403,6 +403,7 @@ void draw() {
     playing = true;
     start = false;
     startTime = millis();
+    timer.reset();
   }
   if (mousePressed == true && s.b2.mouseIsOverButton())
   {
@@ -410,6 +411,7 @@ void draw() {
     playing = true;
     start = false;
     startTime = millis();
+    timer.reset();
   }
   if (mousePressed == true && s.b3.mouseIsOverButton())
   {

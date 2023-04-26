@@ -118,7 +118,7 @@ class Rule
     fill(#DB5656);
     square(x, y, 50);
     fill(255);
-    textSize(15);
+    textSize(12);
     textAlign(CENTER, CENTER);
     if (text.contains("Is"))
     {

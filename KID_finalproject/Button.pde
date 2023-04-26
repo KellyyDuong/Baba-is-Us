@@ -25,6 +25,7 @@ class Button
 
   void display(String info)
   {
+   
     if (mouseIsOverButton()) // Cursor over the button, but not clicked yet
     {
       fill(color(50, 50, 50));

@@ -24,3 +24,18 @@ Class Environment Obj - Kelly Duong
 
 The Environment Obj class is intended to load in the different PImage for the environment objects such as rock, water, lava, lily, and algae. This class consisted of the fields x, y for position of the objects, and an integer type to denote what type of environment object will be displayed. There is also the method display() to display the PImage onto the canvas.
 
+Class Player - Dennis Hong
+
+This class defines how each object that could be controllable by a human player (i.e. the one pressing the arrow keys or WASD) moves and interacts with the environment. A key feature of this class is the ease of adding new player-controllable objects - just make the new object a subclass of Player and specify the display() function.
+
+Class Rule - Dennis Hong
+
+This class defines how rule blocks are displayed onto the screen. The actual rules themselves are defined in the main file.
+
+Class Tree - Dennis Hong
+
+This class defines a tree block that can be controlled by a human player. As of now, this wasn't implemented but could be easily incorporated into a level.
+
+KID_finalproject.pde - Dennis Hong, Kelly Duong, and Isaac Tuan
+
+This file ultimately runs the program. In particular, the main file instantiates and defines any necessary objects, sets out the rules of the game, checks for victory and losing conditions, and draws everything onto the display.

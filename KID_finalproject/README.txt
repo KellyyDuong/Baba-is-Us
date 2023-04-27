@@ -13,3 +13,4 @@ Keyboard Controls
 - "A" Key: Move Player 2 (Yaga) to the left
 - "S" Key: Move Player 2 (Yaga) down
 - "D" Key: Move Player 2 (Yaga) to the right
+- "M" Key: Mutes or unmutes the sound

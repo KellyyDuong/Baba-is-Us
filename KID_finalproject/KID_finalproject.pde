@@ -402,14 +402,6 @@ void draw() {
       fireworks[i].reset();
     }
   }
-  if (mousePressed == true && s.b1.mouseIsOverButton())
-  {
-    singlePlayer = true;
-    playing = true;
-    start = false;
-    startTime = millis();
-    timer.reset();
-  }
   if (mousePressed == true && s.b2.mouseIsOverButton())
   {
     multiPlayer = true;

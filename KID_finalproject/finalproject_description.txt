@@ -1,10 +1,10 @@
 Baba is Us: a game where you “make the rules” as you play the game. Our game is heavily inspired by a preexisting game, “Baba Is You.” In our game, you control a character named Baba who completes levels by meeting some goal in each level within a given time limit. The rules of each level are represented by “word blocks” (e.g. “LAVA”, “IS”, “WIN”) that can be moved around by Baba/Yaga to its advantage. Furthermore, the “play space” of the game (i.e. the area in which the player can move around) is “tiled” so that the player will only be able to move from tile to tile. The play space also has objects (e.g. lava, water, boats, rocks, etc.) that may or may not be manipulated by Baba/Yaga. There is also a solo or multiplayer functionality for our game that you can choose at the beginning prior to starting. 
 
-Class Baba - Kelly Duong
+Class Baba - Kelly Duong and Dennis Hong
 
 The Baba class consists of the sprite Baba. It also has the x, y fields, speed, and initializes the different frames of the Baba sprite. There are the different methods moveLeft(), moveRight(), moveUp(), and moveDown() that moves Baba accordingly based on user key input. Correspondingly, in the display(), the Baba sprite is animated to appear moving left, right, up, and down. Additionally, during the resting state, Baba is animated to seem floating a bit up and down. 
 
-Class Yaga - Kelly Duong
+Class Yaga - Kelly Duong and Dennis Hong
 
 The Yaga class consists of the sprite Yaga. It also has the x, y fields, speed, and initializes the different frames of the Baba sprite. There are the different methods moveLeft(), moveRight(), moveUp(), and moveDown() that moves Yaga accordingly based on user key input. Correspondingly, in the display(), the Yaga sprite is animated to appear moving left, right, up, and down. Additionally, during the resting state, Yaga is animated to seem floating a bit up and down. 
 

@@ -597,4 +597,17 @@ void keyPressed() {
   } else if (keyCode == 'S') {
     p2.moveDown();
   }
+  
+  //Mutes or unmutes the sound when m is pressed
+  if (keyCode == 'M')
+  {
+    if (theme.isPlaying())
+    {
+      theme.pause();
+    }
+    else
+    {
+      theme.play();
+    }
+  }
 }

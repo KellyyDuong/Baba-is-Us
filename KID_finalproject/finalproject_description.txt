@@ -36,6 +36,22 @@ Class Tree - Dennis Hong
 
 This class defines a tree block that can be controlled by a human player. As of now, this wasn't implemented but could be easily incorporated into a level.
 
+Class Button - Isaac Tuan
+
+The button class contains buttons that are used to operate the GUI system. The button can be displayed based on given x position, y position, length, width, and color. There is also a function to that returns whether or not the mouse is over the button.
+
+Class High Scores - Isaac Tuan
+
+The high scores class contains the code that displays the high scores screen. This class gives you the ability to go back to the previous screen and displays the top 3 scores from a text file. The new score is also written to the file after each game.
+
+Class Pause - Isaac Tuan
+
+The pause class displays the code pause screen which can be activated by a button during gameplay. You are given the options to resume, return to the main menu, or visit the high scores screen.
+
+Class Start - Isaac Tuan
+
+The start class displays the start screen where you can choose to play or see the high scores page.
+
 KID_finalproject.pde - Dennis Hong, Kelly Duong, and Isaac Tuan
 
 This file ultimately runs the program. In particular, the main file instantiates and defines any necessary objects, sets out the rules of the game, checks for victory and losing conditions, and draws everything onto the display.

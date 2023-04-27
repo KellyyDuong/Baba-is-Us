@@ -38,5 +38,6 @@ class Button
     textSize(50);
     fill(255);
     text(info, x, y+12.5); // Display text showing what the button does
+    rectMode(CORNER);
   }
 }
